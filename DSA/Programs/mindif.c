@@ -1,0 +1,39 @@
+#include<stdio.h>
+void merge(int arr[], int l, int m, int r){
+	int n = r - l + 1;
+	int temp_arr[n];	
+	int i = l, j = m + 1, k = 0;
+	while(i <= m && j <= r)
+		if(arr[i] < arr[j])
+			temp_arr[k++] = arr[i++];
+		else 
+			temp_arr[k++] = arr[j++];
+	while(i <= m)
+		temp_arr[k++] = arr[i++];
+	while(j <= r)
+		temp_arr[k++] = arr[j++];	
+	for(int i = 0; i < n; i++)
+		arr[l + i] = temp_arr[i];		
+}
+void mergesort(int arr[], int l, int r){
+	if (l < r){
+		int m = (l + r) / 2;
+		mergesort(arr, l, m);
+		mergesort(arr, m + 1, r);
+		merge(arr, l, m, r);
+	}
+}
+int main(){
+	int arr[] = {3, 5, 1, 8}, n = sizeof(arr) / sizeof(arr[0]);
+	printf("Given sequence is...\n");
+	for(int i = 0; i < n; i++)
+		printf("%d\t", arr[i]);
+	printf("\n");
+	mergesort(arr, 0, n - 1);
+	int min_diff = arr[1] - arr[0];
+	for(int i = 1; i < n - 1; i++)
+		if(arr[i + 1] - arr[i] < min_diff)
+			min_diff = arr[i + 1] - arr[i];
+	printf("Minimum difference in the given sequence is equal to %d!\n", min_diff); 
+	return 0;
+}
