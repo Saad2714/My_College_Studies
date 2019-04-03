@@ -30,7 +30,7 @@ void inorder(struct node *root)
 /* A utility function to insert a new node with given key in BST */
 struct node* insert(struct node* node, int key) 
 
-{   
+{   int left_level=0,right_level=0;   
     /* If the tree is empty, return a new node */
     if (node == NULL) return newNode(key); 
   
